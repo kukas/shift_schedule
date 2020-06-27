@@ -6,7 +6,7 @@ A tool for scheduling work shifts (for example in a cafe). Programmed using Cons
 We would like to create a monthly schedule for part-time employees in a café. One month is divided into shifts and each shift has several slots for the employees. The number of slots per shift can be adjusted because some shifts require more workers to be present. The schedule should allocate each worker the requested number of shifts while respecting their availability for the job. Each worker also has an individual skillset (a cook cannot operate the coffee machine and vice versa). The slots can be therefore occupied only by workers with relevant skills. Lastly we would like to constrain the schedule so that no worker works two shifts in a row.
 
 ## Formal description
-
+![Formal description in LaTeX](./formal_description.jpeg)
 ## Usage
 
 ## Examples
