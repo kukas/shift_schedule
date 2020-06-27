@@ -13,6 +13,6 @@ We would like to create a monthly schedule for part-time employees in a café. O
 
 ## Resources used
 
-[Constraint Programming at MFF UK](http://ktiml.mff.cuni.cz/~bartak/podminky)
-[CLP(FD) Constraint Logic Programming over Finite Domains](http://www.pathwayslms.com/swipltuts/clpfd/clpfd.html)
-[SICStus Prolog manual ver. 4.3.2.](https://sicstus.sics.se/sicstus/docs/4.3.2/html/sicstus/)
+- [Constraint Programming at MFF UK](http://ktiml.mff.cuni.cz/~bartak/podminky)
+- [CLP(FD) Constraint Logic Programming over Finite Domains](http://www.pathwayslms.com/swipltuts/clpfd/clpfd.html)
+- [SICStus Prolog manual ver. 4.3.2.](https://sicstus.sics.se/sicstus/docs/4.3.2/html/sicstus/)
