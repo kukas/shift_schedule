@@ -40,16 +40,43 @@ Shifts = [
     [5-manager,1-bartender,2-bartender,3-bartender],
     [6-manager,1-bartender,2-bartender,3-bartender],
     [5-manager,4-bartender,7-bartender]
-]
+].
 
 % generate a schedule without any successive shifts for any employee
 :- schedule(Shifts, [forbidSuccessiveShifts]).
+Shifts = [
+    [5-manager,1-bartender],
+    [6-manager,2-bartender,3-bartender],
+    [5-manager,1-bartender],
+    [6-manager,2-bartender,3-bartender],
+    [5-manager,1-bartender,7-bartender,8-bartender],
+    [6-manager,2-bartender,3-bartender,4-bartender],
+    [5-manager,7-bartender,8-bartender]
+].
 
 % generate a schedule with specified minimum and maximum number of shifts for each employee
 :- schedule(Shifts, [minShifts(2), maxShifts(4)]).
+Shifts = [
+    [5-manager,1-bartender],
+    [5-manager,2-bartender,3-bartender],
+    [5-manager,1-bartender],
+    [5-manager,2-bartender,6-bartender],
+    [7-manager,1-bartender,2-bartender,8-bartender],
+    [6-manager,1-bartender,3-bartender,4-bartender],
+    [7-manager,4-bartender,8-bartender]
+].
 
 % generate a schedule with similarly distributed number of shifts
 :- schedule(Shifts, [forbidSuccessiveShifts, distributeShifts]).
+Shifts = [
+    [5-manager,1-bartender],
+    [6-manager,2-bartender,3-bartender],
+    [5-manager,1-bartender],
+    [6-manager,2-bartender,3-bartender],
+    [5-manager,4-bartender,7-bartender,8-bartender],
+    [6-manager,1-bartender,2-bartender,3-bartender],
+    [7-manager,4-bartender,8-bartender]
+].
 ```
 
 ## Resources used
