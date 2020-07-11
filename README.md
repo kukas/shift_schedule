@@ -25,15 +25,29 @@ Where `Schedule` is free variable that will be unified with a computed schedule 
 
 The `schedule_specification.pl` contains two unary relations `shifts` and `employees`. The relation `shifts` specifies slots to be assigned in each shift. Relation `employees` specifies the availability and skills of each employee. The availability list must be same length as the number of shifts, for each shift we specify whether the employee is available `1` or unavailable `0`.
 
+The output variable `Schedule` contains the assignment of each employee (with numbers starting from 1) to each slot in each shift.
+
 ## Examples
 
 ``` prolog
 % generate any schedule
 :- schedule(Shifts, []).
+Shifts = [
+    [5-manager,1-bartender],
+    [5-manager,2-bartender,3-bartender],
+    [5-manager,1-bartender],
+    [5-manager,2-bartender,3-bartender],
+    [5-manager,1-bartender,2-bartender,3-bartender],
+    [6-manager,1-bartender,2-bartender,3-bartender],
+    [5-manager,4-bartender,7-bartender]
+]
+
 % generate a schedule without any successive shifts for any employee
 :- schedule(Shifts, [forbidSuccessiveShifts]).
+
 % generate a schedule with specified minimum and maximum number of shifts for each employee
 :- schedule(Shifts, [minShifts(2), maxShifts(4)]).
+
 % generate a schedule with similarly distributed number of shifts
 :- schedule(Shifts, [forbidSuccessiveShifts, distributeShifts]).
 ```
