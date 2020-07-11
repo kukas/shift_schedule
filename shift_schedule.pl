@@ -75,31 +75,22 @@ no_successive_shifts([Slots1, Slots2|Rest]) :-
     all_different(BothSlots),
     no_successive_shifts([Slots2|Rest]).
 
+% sum'(Vars, Rel, Expr) :- sum(Rel, Expr, Vars).
+% is'(X, Y) :- is(Y, X).
+additional_shifts_sq(X, Y, Res) :- Res #= (Y - X)*(Y - X).
+distribute_shifts(ShiftCardinality, MinShifts, SumSqShifts) :-
+    maplist(additional_shifts_sq(MinShifts), ShiftCardinality, AdditionalShifts),
+    sum(AdditionalShifts, #=, SumSqShifts).
+
+:- include('schedule_specification.pl').
+
 schedule(Shifts, Options) :-
     length(Shifts, NumberOfShifts),
     (member(minShifts(MinShifts), Options) -> true; MinShifts = 0),
-    (member(minShifts(MaxShifts), Options) -> true; MaxShifts = NumberOfShifts),
-    % length(Shifts, 7),
-    Shifts = [
-        [D11-manager, D12-bartender], 
-        [D21-manager, D22-bartender, D23-bartender],
-        [D31-manager, D32-bartender], 
-        [D41-manager, D42-bartender, D43-bartender],
-        [D51-manager, D52-bartender, D53-bartender, D54-bartender],
-        [D61-manager, D62-bartender, D63-bartender, D64-bartender],
-        [D71-manager, D72-bartender, D73-bartender]
-        ],
+    (member(maxShifts(MaxShifts), Options) -> true; MaxShifts = NumberOfShifts),
+    shifts(Shifts),
+    employees(Employees),
     shift_slots(Shifts, Slots, Jobs),
-    Employees = [
-        [1, 0, 1, 0, 1, 1, 0]-[bartender],
-        [1, 1, 1, 1, 1, 1, 0]-[bartender],
-        [1, 1, 1, 1, 1, 1, 1]-[bartender],
-        [1, 1, 1, 1, 1, 1, 1]-[bartender],
-        [1, 1, 1, 1, 1, 0, 1]-[manager],
-        [1, 1, 1, 1, 1, 1, 0]-[manager, bartender],
-        [1, 1, 1, 1, 1, 1, 1]-[manager, bartender],
-        [1, 0, 1, 1, 1, 1, 1]-[bartender]
-        ],
     length(Employees, NumberOfEmployees),
     length(ShiftCardinality, NumberOfEmployees),
     bagof(X, between(1, NumberOfEmployees, X), EmployeeIds), % EmployeeIds = [1, 2, 3, ..., NumberOfEmployees]
@@ -122,4 +113,10 @@ schedule(Shifts, Options) :-
     keys_and_values(Counts, EmployeeIds, ShiftCardinality),
     global_cardinality(FlatSlots, Counts, []),
 
-    labeling([], FlatSlots).
+    (
+        member(distributeShifts, Options) -> 
+            distribute_shifts(ShiftCardinality, MinShifts, SumSqShifts), LabelingOptions = [minimize(SumSqShifts)];
+        LabelingOptions = []
+    ),
+
+    labeling(LabelingOptions, FlatSlots).
