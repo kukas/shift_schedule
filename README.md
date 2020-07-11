@@ -28,10 +28,14 @@ The `schedule_specification.pl` contains two unary relations `shifts` and `emplo
 ## Examples
 
 ``` prolog
-:- schedule(Shifts, []). % generate any schedule
-:- schedule(Shifts, [forbidSuccessiveShifts]). % generate a schedule without any successive shifts for any employee
-:- schedule(Shifts, [minShifts(2), maxShifts(4)]). % generate a schedule with specified minimum and maximum number of shifts for each employee
-:- schedule(Shifts, [forbidSuccessiveShifts, distributeShifts]). % generate a schedule with similarly distributed number of shifts
+% generate any schedule
+:- schedule(Shifts, []).
+% generate a schedule without any successive shifts for any employee
+:- schedule(Shifts, [forbidSuccessiveShifts]).
+% generate a schedule with specified minimum and maximum number of shifts for each employee
+:- schedule(Shifts, [minShifts(2), maxShifts(4)]).
+% generate a schedule with similarly distributed number of shifts
+:- schedule(Shifts, [forbidSuccessiveShifts, distributeShifts]).
 ```
 
 ## Resources used
