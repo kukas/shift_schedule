@@ -85,11 +85,11 @@ distribute_shifts(ShiftCardinality, MinShifts, SumSqShifts) :-
 :- include('schedule_specification.pl').
 
 schedule(Shifts, Options) :-
+    shifts(Shifts),
+    employees(Employees),
     length(Shifts, NumberOfShifts),
     (member(minShifts(MinShifts), Options) -> true; MinShifts = 0),
     (member(maxShifts(MaxShifts), Options) -> true; MaxShifts = NumberOfShifts),
-    shifts(Shifts),
-    employees(Employees),
     shift_slots(Shifts, Slots, Jobs),
     length(Employees, NumberOfEmployees),
     length(ShiftCardinality, NumberOfEmployees),
